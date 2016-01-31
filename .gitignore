@@ -30,3 +30,13 @@ proguard/
 
 # Android Studio captures folder
 captures/
+
+#Added by @tnemiroff
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
+/build
+/captures
+>>>>>>> 7210a14a1b41b2831a3aa650e60e1c08fd8a04eb
