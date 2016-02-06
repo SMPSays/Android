@@ -5,4 +5,7 @@
     <string name="action_add">Add A Quote</string>
     <string name="preset_sort">Sorted By: </string>
     <string name="action_search">Search</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
