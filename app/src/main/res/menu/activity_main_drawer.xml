@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item android:id="@+id/search" android:icon="@android:drawable/ic_search_category_default"
+            android:title="Search" />
+        <item android:id="@+id/add_quote" android:icon="@android:drawable/ic_menu_add"
+            android:title="Add A Quote" />
+        <item android:id="@+id/notifications" android:icon="@android:drawable/ic_popup_reminder"
+            android:title="Notifications" />
+        <item android:id="@+id/nav_more" android:icon="@android:drawable/ic_menu_more"
+            android:title="More" />
+    </group>
+
+</menu>
