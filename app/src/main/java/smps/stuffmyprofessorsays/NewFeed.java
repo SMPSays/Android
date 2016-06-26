@@ -3,9 +3,18 @@ package smps.stuffmyprofessorsays;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 
 
 /**
@@ -25,6 +34,7 @@ public class NewFeed extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private String newFeedUrl = "http://www.smpsays-api.xyz/RUEf2i15kex8nXhmJxCW2ozA5SNIyfLn/search/quotes?school=san";
 
     private OnFragmentInteractionListener mListener;
 
@@ -57,13 +67,42 @@ public class NewFeed extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        // Non view initializations can happen here
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        View view = inflater.inflate(R.layout.fragment_new_feed, container, false);
+
+        RequestQueue queue = Volley.newRequestQueue(getContext());
+        final TextView text = (TextView) view.findViewById(R.id.new_feed);
+
+        Log.d("DEBUG", "Working");
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, newFeedUrl,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String data) {
+                        text.setText(data);
+                        Log.d("DEBUG: ", data);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        // Handle error
+                        text.setText("Error er something?");
+                        Log.d("DEBUG: ", "Error");
+                    }
+                }
+        );
+        queue.add(stringRequest);
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_new_feed, container, false);
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

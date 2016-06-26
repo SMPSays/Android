@@ -11,19 +11,10 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
-
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-
-import org.json.JSONObject;
 
 
 public class MainActivity extends AppCompatActivity
@@ -94,31 +85,6 @@ public class MainActivity extends AppCompatActivity
             fragmentSwitcher.setViewPager(theViewPager);
         }
         fragmentSwitcher.setPage(activeFragment.getInt("Current"));
-
-
-        final TextView trendingView = (TextView) findViewById(R.id.trendingFragment);
-        String url = "http://54.149.145.239:3000/1nzP0uCbbtr8NMIfGiE5KiQmIAX2ykrC/search/quotes";
-
-        JsonObjectRequest jsObjRequest = new JsonObjectRequest
-                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        Log.d("Tag", response.toString());
-                        trendingFeedBundle.putString("trendingPosts", response.toString());
-                    }
-                }, new Response.ErrorListener() {
-
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.d("Tag", error.getMessage().toString());
-                    }
-                });
-
-        // Access the RequestQueue through your singleton class.
-        VolleySingleton.getInstance(this).addToRequestQueue(jsObjRequest);
-
-
     }
 
     @Override
