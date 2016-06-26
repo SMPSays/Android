@@ -6,50 +6,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".MainActivity">
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:background="?attr/colorPrimary"
-        android:id="@+id/header"
-        android:layout_alignParentRight="false"
-        android:foregroundGravity="right">
-
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:text="Stuff My Professor Says"
-            android:id="@+id/textView"
-            android:textColor="#fff"
-            android:textStyle="bold"
-            android:textSize="30sp"
-            android:textIsSelectable="false"
-            android:layout_gravity="center_vertical"
-            android:singleLine="false"
-            android:gravity="center_vertical|center_horizontal" />
-    </LinearLayout>
+    tools:context=".MainActivity"
+    android:elevation="20dp">
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/header"
         android:id="@+id/main_button_container"
         android:paddingBottom="2dp"
         android:orientation="horizontal"
-        android:weightSum="1.0"
-        >
+        android:weightSum="1.0">
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_weight="0.5"
-            android:layout_margin="1dp">
+            android:layout_margin="0dp">
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -74,7 +47,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_weight="0.5"
-            android:layout_margin="1dp"
+            android:layout_margin="0dp"
             >
             <Button
                 android:layout_width="match_parent"
@@ -113,27 +86,5 @@
         android:layout_height="match_parent"
         android:layout_alignEnd="@id/main_button_container"
         android:layout_below="@+id/main_button_container" />
-
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:fab="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentEnd="false"
-        android:id="@+id/frameLayout"
-        android:layout_below="@+id/header">
-
-        <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|right"
-            android:layout_marginBottom="8dp"
-            android:layout_marginRight="8dp"
-            android:src="@drawable/ic_menu"
-            fab:fab_colorNormal="@color/colorPrimary"
-            fab:fab_colorPressed="@color/colorPrimary"
-            fab:fab_colorRipple="@color/colorPrimary"/>
-
-    </FrameLayout>
 
 </RelativeLayout>
