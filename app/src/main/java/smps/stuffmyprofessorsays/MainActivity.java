@@ -1,5 +1,6 @@
 package smps.stuffmyprofessorsays;
 
+
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -15,13 +16,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private MainAdapter theMainAdapter;
     private ViewPager theViewPager;
     private FragmentSwitcherManager fragmentSwitcher;
-    private Bundle bun;
+    private Bundle activeFragment;
+    private Bundle trendingFeedBundle;
+    private Bundle newFeedBundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,10 +52,10 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        bun = savedInstanceState;
-        if(bun == null){
-            bun = new Bundle();
-            bun.putInt("Current", 1);
+        activeFragment = savedInstanceState;
+        if(activeFragment == null){
+            activeFragment = new Bundle();
+            activeFragment.putInt("Current", 1);
         }
 
         theMainAdapter = new MainAdapter(getSupportFragmentManager());
@@ -63,27 +67,24 @@ public class MainActivity extends AppCompatActivity
         if(fragmentSwitcher == null) {
             fragmentSwitcher = new FragmentSwitcherManager(theViewPager, 0);
 
-            Button button;
+            Button trendingFeedButton, newFeedButton;
             View view;
 
-            button = (Button) findViewById(R.id.main_button_1);
-            //button.setText("Trending");
+            trendingFeedButton = (Button) findViewById(R.id.main_button_1);
             view = findViewById(R.id.main_bar_1);
             view.setVisibility(View.INVISIBLE);
-            fragmentSwitcher.add(button, view);
+            fragmentSwitcher.add(trendingFeedButton, view);
 
-            button = (Button) findViewById(R.id.main_button_2);
-            //button.setText("New");
+            newFeedButton = (Button) findViewById(R.id.main_button_2);
             view = findViewById(R.id.main_bar_2);
             view.setVisibility(View.INVISIBLE);
-            fragmentSwitcher.add(button, view);
+            fragmentSwitcher.add(newFeedButton, view);
 
 
         }else {
             fragmentSwitcher.setViewPager(theViewPager);
         }
-        fragmentSwitcher.setPage(bun.getInt("Current"));
-
+        fragmentSwitcher.setPage(activeFragment.getInt("Current"));
     }
 
     @Override

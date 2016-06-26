@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#1c94c4</color>
     <color name="colorPrimaryDark">#073B4C</color>
-    <color name="colorAccent">#FFD166</color>
+    <color name="colorAccent">#ffd166</color>
     <color name="downvote">#EF476F</color>
     <color name="upvote">#06D6A0</color>
 </resources>
