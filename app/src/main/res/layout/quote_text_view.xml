@@ -3,13 +3,26 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:weightSum="1"
-    android:minHeight="100dp">
+    android:minHeight="10dp"
+    android:layout_marginLeft="10dip"
+    android:layout_marginRight="10dip">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dip"
+        android:layout_marginBottom="10dip"
         android:text="New Text"
         android:id="@+id/quotationTextView"
+        android:textSize="18sp"
+        android:gravity="center"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dip"
+        android:text="New Text"
+        android:id="@+id/professorTextView"
         android:textSize="18sp"
         android:gravity="center"/>
 </LinearLayout>

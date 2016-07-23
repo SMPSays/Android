@@ -1,15 +1,16 @@
 package smps.stuffmyprofessorsays;
 
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -59,7 +60,7 @@ public class TrendingFeed extends Fragment {
      * @return A new instance of fragment TrendingFeed.
      */
     // TODO: Rename and change types and number of parameters
-    public static TrendingFeed newInstance(String param1, String param2) {
+    private static TrendingFeed newInstance(String param1, String param2) {
         TrendingFeed fragment = new TrendingFeed();
         Bundle args = new Bundle();
         fragment.setArguments(args);
@@ -80,6 +81,10 @@ public class TrendingFeed extends Fragment {
         RequestQueue queue = Volley.newRequestQueue(getContext());
         mRecyclerView = (RecyclerView) view.findViewById(R.id.quoteRecyclerView);
 
+        Drawable separator = ContextCompat.getDrawable(getContext(), R.drawable.line_divider);
+        RecyclerView.ItemDecoration dividerItemDecoration = new DividerItemDecoration(separator);
+        mRecyclerView.addItemDecoration(dividerItemDecoration);
+
         mLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
 
@@ -91,9 +96,7 @@ public class TrendingFeed extends Fragment {
                     @Override
                     public void onResponse(String data) {
                         // Use an adapter here to populate the recycler view with quotations.
-
-                        String[] quotations = parseJsonResponse(data);
-                        ArrayAdapter adapter = new ArrayAdapter<String>(getContext(), R.layout.quote_text_view, quotations);
+                        List<Quotation> quotations = parseJsonResponse(data);
 
                         mAdapter = new QuotationRecyclerAdapter(quotations);
                         mRecyclerView.setAdapter(mAdapter);
@@ -114,11 +117,10 @@ public class TrendingFeed extends Fragment {
         return view;
     }
 
-    private String[] parseJsonResponse(String response){
-        List<String> outputList = new ArrayList<String>();
+    private List<Quotation> parseJsonResponse(String response){
+        List<Quotation> quotationList = new ArrayList<>();
         JSONArray reader;
-        JSONObject currentQuote = null;
-        String currentQuoteString = null;
+        JSONObject currentQuote;
         int currentQuoteNdx = 0;
 
         try {
@@ -131,8 +133,12 @@ public class TrendingFeed extends Fragment {
 
         while (currentQuoteNdx < reader.length()){
             try{
-                currentQuoteString = currentQuote.getString("quotation");
-                outputList.add(currentQuoteString);
+                String quoteText = currentQuote.getString("quotation");
+                String professor = currentQuote.getString("professor");
+                String subject = currentQuote.getString("subject");
+                String school = currentQuote.getString("school");
+                Quotation quotation = new Quotation(quoteText, professor, subject, school);
+                quotationList.add(quotation);
                 currentQuote = reader.getJSONObject(currentQuoteNdx++);
             }catch (JSONException e){
                 Log.d("Error: ", e.toString());
@@ -140,7 +146,7 @@ public class TrendingFeed extends Fragment {
             }
         }
 
-        return outputList.toArray(new String[0]);
+        return quotationList;
     }
 
 
@@ -162,7 +168,7 @@ public class TrendingFeed extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnFragmentInteractionListener {
+    interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
